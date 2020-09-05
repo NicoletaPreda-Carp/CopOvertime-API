@@ -2,11 +2,9 @@ package org.example.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,4 +14,7 @@ public class LegalDayOff {
         private Long id;
 
         private LocalDate dayOff;
+
+        @OneToMany(mappedBy = "legalDayOff")
+        private List<OvertimeHour> overtimeHours;
 }

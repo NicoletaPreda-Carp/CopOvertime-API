@@ -21,5 +21,5 @@ public class OvertimeHourDto {
     private Boolean isWeekend;
     private Boolean enabled;
     private Long legalDayOffId;
-    private Long validNumberOfDays;
+    private Long validNumberOfDaysId;
 }

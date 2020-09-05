@@ -2,12 +2,10 @@ package org.example.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,6 +22,16 @@ public class OvertimeHour {
     private Boolean isWeekend;
     private Boolean enabled;
 
-//    private Long legalDayOffId;
-//    private Long validNumberOfDays;
+    @OneToMany(mappedBy = "overtimeHour")
+    private List<EmployeeOvertimeHour> employeeOvertimeHours;
+
+
+    @ManyToOne
+    @JoinColumn(name = "legal_day_off_id", foreignKey = @ForeignKey(name = "LEGAL_DOFF_OVERTIMEHOURS_FK"))
+    private LegalDayOff legalDayOff;
+
+
+    @ManyToOne
+    @JoinColumn(name = "valid_number_of_days_id", foreignKey = @ForeignKey(name = "VNODPOTH_OVERTIMEHOURS_FK"))
+    private ValidNumberOfDaysPerOvertimeHour validNumberOfDaysPerOvertimeHour;
 }

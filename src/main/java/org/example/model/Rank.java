@@ -2,11 +2,9 @@ package org.example.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,4 +16,8 @@ public class Rank {
     private String type;
     private LocalDate startedAt;
     private LocalDate endedAt;
+
+    @OneToMany(mappedBy = "rank")
+    private List<EmployeeRank> employeeRanks;
+
 }

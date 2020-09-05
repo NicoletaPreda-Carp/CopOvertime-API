@@ -2,10 +2,7 @@ package org.example.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -15,7 +12,15 @@ public class EmployeeRank {
     private Long id;
 
 
-//    private Long employeeId;
-//    private Long rankId;
+    @ManyToOne
+    @JoinColumn(name = "employee_id", foreignKey = @ForeignKey(name = "EMPLOYEE_RANK_EMPLOYEES_FK"))
+    private Employee employee;
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "rank_id", foreignKey = @ForeignKey(name = "EMPLOYEE_RANK_RANKS_FK"))
+    private Rank rank;
+
 
 }

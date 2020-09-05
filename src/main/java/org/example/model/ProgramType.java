@@ -1,11 +1,10 @@
 package org.example.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,5 +19,8 @@ public class ProgramType {
     private LocalTime startsAt;
 
     private LocalTime endsAt;
+
+    @OneToMany(mappedBy = "programType")
+    private List<DepartmentProgram> departmentPrograms;
 
 }

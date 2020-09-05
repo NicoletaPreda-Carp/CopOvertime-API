@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ValidNumberOfDaysPerOvertimeHour {
+public class ValidNumberOfDaysPerOvertimeHourDto {
 
     private Long id;
     private Integer validNumberOfDays;
+
 }
