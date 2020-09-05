@@ -214,13 +214,15 @@ CREATE TABLE `overtime_hours` (
   `number_of_hours` int DEFAULT NULL,
   `valid_number_of_days_id` int DEFAULT NULL,
   `is_weekend` tinyint DEFAULT NULL,
-  `enabled` tinyint NOT NULL,
-  `expires_at` date NOT NULL,
+  `enabled` tinyint DEFAULT NULL,
+  `expires_at` date DEFAULT NULL,
   `legal_day_off_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `LEGAL_DOFF_OVERTIMEHOURS_FK_idx` (`legal_day_off_id`),
-  CONSTRAINT `LEGAL_DOFF_OVERTIMEHOURS_FK` FOREIGN KEY (`legal_day_off_id`) REFERENCES `legal_day_off` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `VNODPOTH_OVERTIMEHOURS_FK_idx` (`valid_number_of_days_id`),
+  CONSTRAINT `LEGAL_DOFF_OVERTIMEHOURS_FK` FOREIGN KEY (`legal_day_off_id`) REFERENCES `legal_day_off` (`id`),
+  CONSTRAINT `VNODPOTH_OVERTIMEHOURS_FK` FOREIGN KEY (`valid_number_of_days_id`) REFERENCES `valid_number_of_days_per_overtime_hours` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,8 +231,60 @@ CREATE TABLE `overtime_hours` (
 
 LOCK TABLES `overtime_hours` WRITE;
 /*!40000 ALTER TABLE `overtime_hours` DISABLE KEYS */;
+INSERT INTO `overtime_hours` VALUES (1,'2020-05-23','08:00:00','09:00:00',1,NULL,NULL,1,'2020-08-09',NULL),(2,'2020-07-23','16:00:00','00:00:00',16,NULL,NULL,0,'2020-09-07',NULL);
 /*!40000 ALTER TABLE `overtime_hours` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `overtime_hours_BEFORE_INSERT` BEFORE INSERT ON `overtime_hours` FOR EACH ROW BEGIN
+	set new.number_of_hours = hour( timediff (new.started_at, new.ended_at));
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `overtime_hours_BEFORE_UPDATE` BEFORE UPDATE ON `overtime_hours` FOR EACH ROW BEGIN
+	set new.number_of_hours = hour( timediff (new.started_at, new.ended_at));
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `overtime_hours_AFTER_DELETE` AFTER DELETE ON `overtime_hours` FOR EACH ROW BEGIN
+ -- insert into altTabel(nume coloana1, col 2) values (old.number_of_hours)
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `program_types`
@@ -283,6 +337,29 @@ LOCK TABLES `ranks` WRITE;
 INSERT INTO `ranks` VALUES (1,'comisar șef',NULL,NULL),(2,'comisar',NULL,NULL),(3,'subcomisar',NULL,NULL),(4,'inspector principal',NULL,NULL),(5,'inspector',NULL,NULL),(6,'subinspector',NULL,NULL),(7,'agent șef principal',NULL,NULL),(8,'agent șef',NULL,NULL),(9,'agent șef adjunct',NULL,NULL),(10,'agent principal',NULL,NULL),(11,'agent',NULL,NULL),(12,'chestor',NULL,NULL),(13,'chestor principal',NULL,NULL),(14,'chestor șef adjunct',NULL,NULL),(15,'chestor șef',NULL,NULL);
 /*!40000 ALTER TABLE `ranks` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `valid_number_of_days_per_overtime_hours`
+--
+
+DROP TABLE IF EXISTS `valid_number_of_days_per_overtime_hours`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `valid_number_of_days_per_overtime_hours` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `valid_number_of_days` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `valid_number_of_days_per_overtime_hours`
+--
+
+LOCK TABLES `valid_number_of_days_per_overtime_hours` WRITE;
+/*!40000 ALTER TABLE `valid_number_of_days_per_overtime_hours` DISABLE KEYS */;
+/*!40000 ALTER TABLE `valid_number_of_days_per_overtime_hours` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -293,4 +370,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-05 13:07:59
+-- Dump completed on 2020-09-05 14:33:45

@@ -1,6 +1,5 @@
 package org.example.model;
 
-
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -10,12 +9,10 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class DepartmentProgram {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class ValidNumberOfDaysPerOvertimeHour {
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        private Long id;
 
-//    private Long departmentId;
-//    private Long programTypeId;
-
+        private Integer validNumberOfDays;
 }

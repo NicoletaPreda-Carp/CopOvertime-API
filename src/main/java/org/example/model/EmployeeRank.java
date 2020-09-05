@@ -1,6 +1,5 @@
 package org.example.model;
 
-
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -10,12 +9,13 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class DepartmentProgram {
+public class EmployeeRank {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-//    private Long departmentId;
-//    private Long programTypeId;
+
+//    private Long employeeId;
+//    private Long rankId;
 
 }

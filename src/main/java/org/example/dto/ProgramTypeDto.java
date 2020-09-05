@@ -1,24 +1,20 @@
-package org.example.model;
+package org.example.dto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalTime;
 
-@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProgramTypeDto {
 
-public class ProgramType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
-
     private LocalTime startsAt;
-
     private LocalTime endsAt;
 
 }
