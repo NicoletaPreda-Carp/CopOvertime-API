@@ -10,13 +10,13 @@ import org.mapstruct.Mappings;
 public interface OvertimeHourMapper {
     @Mappings({
             @Mapping(source = "legalDayOffId", target = "legalDayOff.id"),
-            @Mapping(source = "validNumberOfDaysPerOvertimeHourId", target = "validNumberOfDaysPerOvertimeHour.id"),
+            @Mapping(source = "validNumberOfDaysId", target = "validNumberOfDaysPerOvertimeHour.id"),
     })
     OvertimeHour dtoToModel (OvertimeHourDto dto);
 
     @Mappings({
             @Mapping(source = "legalDayOff.id", target = "legalDayOffId"),
-            @Mapping(source = "validNumberOfDaysPerOvertimeHour.id", target = "validNumberOfDaysPerOvertimeHourId"),
+            @Mapping(source = "validNumberOfDaysPerOvertimeHour.id", target = "validNumberOfDaysId"),
     })
     OvertimeHourDto modelToDto (OvertimeHour model);
 }
