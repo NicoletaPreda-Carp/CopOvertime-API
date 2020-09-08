@@ -19,6 +19,5 @@ public class Department {
 
     @OneToMany(mappedBy = "department")
     private List<DepartmentProgram> departmentPrograms;
-
-
+    
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class ValidNumberOfDaysPerOvertimeHour {
+public class ValidNumberOfDaysPerOH {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;

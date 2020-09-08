@@ -33,5 +33,5 @@ public class OvertimeHour {
 
     @ManyToOne
     @JoinColumn(name = "valid_number_of_days_id", foreignKey = @ForeignKey(name = "VNODPOTH_OVERTIMEHOURS_FK"))
-    private ValidNumberOfDaysPerOvertimeHour validNumberOfDaysPerOvertimeHour;
+    private ValidNumberOfDaysPerOH validNumberOfDaysPerOvertimeHour;
 }

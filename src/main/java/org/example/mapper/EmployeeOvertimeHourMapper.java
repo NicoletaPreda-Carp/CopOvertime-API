@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
-public interface EmployeeOvertimeHoursMapper {
+public interface EmployeeOvertimeHourMapper {
     @Mappings({
             @Mapping(source = "overtimeHourId", target = "overtimeHour.id"),
             @Mapping(source = "employeeId", target = "employee.id"),
