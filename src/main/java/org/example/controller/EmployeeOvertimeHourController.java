@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/EmployeeOvertimeHours")
+@RequestMapping("/api/employeeOvertimeHours")
 public class EmployeeOvertimeHourController {
     @Autowired
     private EmployeeOvertimeHourService service;

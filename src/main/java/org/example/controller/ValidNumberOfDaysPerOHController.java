@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/validNumberOfDaysPerOH")
+@RequestMapping("/api/validNumberOfDays")
 public class ValidNumberOfDaysPerOHController {
     @Autowired
     private ValidNumberOfDaysPerOHService service;
