@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity (name = "valid_number_of_days_per_overtime_hours")
 @Data
 public class ValidNumberOfDaysPerOH {
         @Id

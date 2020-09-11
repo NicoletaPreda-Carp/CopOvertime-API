@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+@Entity (name = "ranks")
 @Data
 public class Rank {
     @Id

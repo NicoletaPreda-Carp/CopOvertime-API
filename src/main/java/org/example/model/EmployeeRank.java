@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "employee_ranks")
 @Data
 public class EmployeeRank {
     @Id

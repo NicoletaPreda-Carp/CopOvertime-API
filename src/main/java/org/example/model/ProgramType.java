@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.List;
 
-@Entity
+@Entity(name ="program_types" )
 @Data
 
 public class ProgramType {
