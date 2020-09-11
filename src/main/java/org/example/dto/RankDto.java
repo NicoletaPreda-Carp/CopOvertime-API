@@ -13,6 +13,5 @@ public class RankDto {
     private Long id;
 
     private String type;
-    private LocalDate startedAt;
-    private LocalDate endedAt;
+
 }

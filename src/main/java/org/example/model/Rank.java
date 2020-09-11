@@ -14,8 +14,6 @@ public class Rank {
     private Long id;
 
     private String type;
-    private LocalDate startedAt;
-    private LocalDate endedAt;
 
     @OneToMany(mappedBy = "rank")
     private List<EmployeeRank> employeeRanks;
