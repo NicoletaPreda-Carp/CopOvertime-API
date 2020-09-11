@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LegalDayOffDto {
-    private Long id;
 
+    private Long id;
     private LocalDate dayOff;
 }
