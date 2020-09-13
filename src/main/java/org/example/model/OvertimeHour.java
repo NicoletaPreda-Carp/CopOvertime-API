@@ -27,7 +27,7 @@ public class OvertimeHour {
 
 
     @ManyToOne
-    @JoinColumn(name = "legal_days_off_id", foreignKey = @ForeignKey(name = "LEGAL_DOFF_OVERTIMEHOURS_FK"))
+    @JoinColumn(name = "legal_day_off_id", foreignKey = @ForeignKey(name = "LEGAL_DOFF_OVERTIMEHOURS_FK"))
     private LegalDayOff legalDayOff;
 
 
