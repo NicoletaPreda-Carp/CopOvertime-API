@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class RankDto {
     private Long id;
-
     private String type;
 
 }

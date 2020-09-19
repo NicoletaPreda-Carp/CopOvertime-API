@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `cop_overtime` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `cop_overtime`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: cop_overtime
@@ -31,8 +29,8 @@ CREATE TABLE `department_employees` (
   PRIMARY KEY (`id`),
   KEY `DEPARTMENT_EMPLOYEE_EMPLOYEES_idx` (`employee_id`),
   KEY `DEPARTMET_EMPLOYEE_DEPARTMENTS_idx` (`department_id`),
-  CONSTRAINT `DEPARTMENT_EMPLOYEE_EMPLOYEES` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
-  CONSTRAINT `DEPARTMET_EMPLOYEE_DEPARTMENTS` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`)
+  CONSTRAINT `DEPARTMENT_EMPLOYEE_EMPLOYEES_FK` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
+  CONSTRAINT `DEPARTMET_EMPLOYEE_DEPARTMENTS_FK` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -84,7 +82,7 @@ CREATE TABLE `departments` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,6 +91,7 @@ CREATE TABLE `departments` (
 
 LOCK TABLES `departments` WRITE;
 /*!40000 ALTER TABLE `departments` DISABLE KEYS */;
+INSERT INTO `departments` VALUES (1,'BITSLF'),(2,'BITSLF-Padoc'),(3,'Expertize'),(4,'Baze de Date'),(5,'IT'),(6,'Secretariat'),(7,'fghjk'),(8,'ae4562563');
 /*!40000 ALTER TABLE `departments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,12 +134,14 @@ CREATE TABLE `employee_ranks` (
   `id` int NOT NULL AUTO_INCREMENT,
   `employee_id` int NOT NULL,
   `rank_id` int NOT NULL,
+  `started_at` date DEFAULT NULL,
+  `ended_at` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `EMPLOYEE_RANK_EMPLOYEES_FK_idx` (`employee_id`),
   KEY `EMPLOYEE_RANK_RANKS_FK_idx` (`rank_id`),
   CONSTRAINT `EMPLOYEE_RANK_EMPLOYEES_FK` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
   CONSTRAINT `EMPLOYEE_RANK_RANKS_FK` FOREIGN KEY (`rank_id`) REFERENCES `ranks` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,6 +150,7 @@ CREATE TABLE `employee_ranks` (
 
 LOCK TABLES `employee_ranks` WRITE;
 /*!40000 ALTER TABLE `employee_ranks` DISABLE KEYS */;
+INSERT INTO `employee_ranks` VALUES (1,1,2,NULL,NULL),(2,3,5,NULL,NULL);
 /*!40000 ALTER TABLE `employee_ranks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +166,7 @@ CREATE TABLE `employees` (
   `name` varchar(45) NOT NULL,
   `surname` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,30 +175,32 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES (1,'Vasiliu','Andrei'),(2,'Nicoara','Valentina'),(3,'Andrei','Ion');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `legal_day_off`
+-- Table structure for table `legal_days_off`
 --
 
-DROP TABLE IF EXISTS `legal_day_off`;
+DROP TABLE IF EXISTS `legal_days_off`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `legal_day_off` (
+CREATE TABLE `legal_days_off` (
   `id` int NOT NULL AUTO_INCREMENT,
   `day_off` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `legal_day_off`
+-- Dumping data for table `legal_days_off`
 --
 
-LOCK TABLES `legal_day_off` WRITE;
-/*!40000 ALTER TABLE `legal_day_off` DISABLE KEYS */;
-/*!40000 ALTER TABLE `legal_day_off` ENABLE KEYS */;
+LOCK TABLES `legal_days_off` WRITE;
+/*!40000 ALTER TABLE `legal_days_off` DISABLE KEYS */;
+INSERT INTO `legal_days_off` VALUES (1,'2020-01-01'),(2,'2020-01-02'),(3,'2020-01-24'),(4,'2020-04-17'),(5,'2020-04-19'),(6,'2020-04-20'),(7,'2020-05-01'),(8,'2020-06-01'),(9,'2020-07-07'),(10,'2020-07-08'),(11,'2020-08-15'),(12,'2020-11-30'),(13,'2020-12-01'),(14,'2020-12-25'),(15,'2020-12-26');
+/*!40000 ALTER TABLE `legal_days_off` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -216,11 +220,11 @@ CREATE TABLE `overtime_hours` (
   `is_weekend` tinyint DEFAULT NULL,
   `enabled` tinyint DEFAULT NULL,
   `expires_at` date DEFAULT NULL,
-  `legal_day_off_id` int DEFAULT NULL,
+  `legal_days_off_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `LEGAL_DOFF_OVERTIMEHOURS_FK_idx` (`legal_day_off_id`),
+  KEY `LEGAL_DOFF_OVERTIMEHOURS_FK_idx` (`legal_days_off_id`),
   KEY `VNODPOTH_OVERTIMEHOURS_FK_idx` (`valid_number_of_days_id`),
-  CONSTRAINT `LEGAL_DOFF_OVERTIMEHOURS_FK` FOREIGN KEY (`legal_day_off_id`) REFERENCES `legal_day_off` (`id`),
+  CONSTRAINT `LEGAL_DOFF_OVERTIMEHOURS_FK` FOREIGN KEY (`legal_days_off_id`) REFERENCES `legal_days_off` (`id`),
   CONSTRAINT `VNODPOTH_OVERTIMEHOURS_FK` FOREIGN KEY (`valid_number_of_days_id`) REFERENCES `valid_number_of_days_per_overtime_hours` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -231,7 +235,7 @@ CREATE TABLE `overtime_hours` (
 
 LOCK TABLES `overtime_hours` WRITE;
 /*!40000 ALTER TABLE `overtime_hours` DISABLE KEYS */;
-INSERT INTO `overtime_hours` VALUES (1,'2020-05-23','08:00:00','09:00:00',1,NULL,NULL,1,'2020-08-09',NULL),(2,'2020-07-23','16:00:00','00:00:00',16,NULL,NULL,0,'2020-09-07',NULL);
+INSERT INTO `overtime_hours` VALUES (1,'2020-05-16','15:00:00','21:00:00',6,1,0,1,'2020-08-03',1);
 /*!40000 ALTER TABLE `overtime_hours` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -299,7 +303,7 @@ CREATE TABLE `program_types` (
   `starts_at` time NOT NULL,
   `ends_at` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +312,7 @@ CREATE TABLE `program_types` (
 
 LOCK TABLES `program_types` WRITE;
 /*!40000 ALTER TABLE `program_types` DISABLE KEYS */;
-INSERT INTO `program_types` VALUES (1,'program Normal','08:00:00','16:00:00'),(2,'Schimbul 1','06:00:00','14:00:00'),(3,'Schimbul 2','14:00:00','22:00:00'),(4,'Schimbul 3','22:00:00','06:00:00'),(6,'24H-firstDay','08:00:00','23:59:59'),(7,'24H-secondDay','00:00:00','07:59:59');
+INSERT INTO `program_types` VALUES (1,'normal schedule','08:00:00','16:00:00'),(2,'first shift','06:00:00','14:00:00'),(3,'second shift','14:00:00','22:00:00'),(4,'third shift','22:00:00','06:00:00'),(6,'24H-firstDay','08:00:00','23:59:59'),(7,'24H-secondDay','00:00:00','07:59:59'),(8,'pregnancy shedule','08:00:00','14:00:00');
 /*!40000 ALTER TABLE `program_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,8 +326,6 @@ DROP TABLE IF EXISTS `ranks`;
 CREATE TABLE `ranks` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type` varchar(45) NOT NULL,
-  `started_at` date DEFAULT NULL,
-  `ended_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -334,7 +336,7 @@ CREATE TABLE `ranks` (
 
 LOCK TABLES `ranks` WRITE;
 /*!40000 ALTER TABLE `ranks` DISABLE KEYS */;
-INSERT INTO `ranks` VALUES (1,'comisar șef',NULL,NULL),(2,'comisar',NULL,NULL),(3,'subcomisar',NULL,NULL),(4,'inspector principal',NULL,NULL),(5,'inspector',NULL,NULL),(6,'subinspector',NULL,NULL),(7,'agent șef principal',NULL,NULL),(8,'agent șef',NULL,NULL),(9,'agent șef adjunct',NULL,NULL),(10,'agent principal',NULL,NULL),(11,'agent',NULL,NULL),(12,'chestor',NULL,NULL),(13,'chestor principal',NULL,NULL),(14,'chestor șef adjunct',NULL,NULL),(15,'chestor șef',NULL,NULL);
+INSERT INTO `ranks` VALUES (1,'comisar șef'),(2,'comisar'),(3,'subcomisar'),(4,'inspector principal'),(5,'inspector'),(6,'subinspector'),(7,'agent șef principal'),(8,'agent șef'),(9,'agent șef adjunct'),(10,'agent principal'),(11,'agent'),(12,'chestor'),(13,'chestor principal'),(14,'chestor șef adjunct'),(15,'chestor șef');
 /*!40000 ALTER TABLE `ranks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -349,7 +351,7 @@ CREATE TABLE `valid_number_of_days_per_overtime_hours` (
   `id` int NOT NULL AUTO_INCREMENT,
   `valid_number_of_days` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,6 +360,7 @@ CREATE TABLE `valid_number_of_days_per_overtime_hours` (
 
 LOCK TABLES `valid_number_of_days_per_overtime_hours` WRITE;
 /*!40000 ALTER TABLE `valid_number_of_days_per_overtime_hours` DISABLE KEYS */;
+INSERT INTO `valid_number_of_days_per_overtime_hours` VALUES (1,15),(2,20),(3,30),(4,50),(5,55),(6,60);
 /*!40000 ALTER TABLE `valid_number_of_days_per_overtime_hours` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -370,4 +373,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-05 14:33:45
+-- Dump completed on 2020-09-19 15:11:13

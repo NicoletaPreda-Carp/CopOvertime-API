@@ -1,5 +1,6 @@
 package org.example.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.time.LocalTime;
 public class OvertimeHourDto {
     private Long id;
 
+
     private LocalDate performedAt;
     private LocalTime startedAt;
     private LocalTime endedAt;
@@ -20,6 +22,6 @@ public class OvertimeHourDto {
     private LocalDate expiresAt;
     private Boolean isWeekend;
     private Boolean enabled;
-    private Long legalDayOffId;
+    private Long legalDaysOffId;
     private Long validNumberOfDaysId;
 }
