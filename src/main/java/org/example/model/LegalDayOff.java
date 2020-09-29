@@ -14,6 +14,7 @@ public class LegalDayOff {
         private Long id;
 
         private LocalDate dayOff;
+        private String name;
 
         @OneToMany(mappedBy = "legalDayOff")
         private List<OvertimeHour> overtimeHours;

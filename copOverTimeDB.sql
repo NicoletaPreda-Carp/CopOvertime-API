@@ -82,7 +82,7 @@ CREATE TABLE `departments` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,8 +189,9 @@ DROP TABLE IF EXISTS `legal_days_off`;
 CREATE TABLE `legal_days_off` (
   `id` int NOT NULL AUTO_INCREMENT,
   `day_off` date NOT NULL,
+  `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +200,7 @@ CREATE TABLE `legal_days_off` (
 
 LOCK TABLES `legal_days_off` WRITE;
 /*!40000 ALTER TABLE `legal_days_off` DISABLE KEYS */;
-INSERT INTO `legal_days_off` VALUES (1,'2020-01-01'),(2,'2020-01-02'),(3,'2020-01-24'),(4,'2020-04-17'),(5,'2020-04-19'),(6,'2020-04-20'),(7,'2020-05-01'),(8,'2020-06-01'),(9,'2020-07-07'),(10,'2020-07-08'),(11,'2020-08-15'),(12,'2020-11-30'),(13,'2020-12-01'),(14,'2020-12-25'),(15,'2020-12-26');
+INSERT INTO `legal_days_off` VALUES (0,'1970-01-01',''),(1,'2020-01-01',''),(2,'2020-01-02',''),(3,'2020-01-24',''),(4,'2020-04-17',''),(5,'2020-04-19',''),(6,'2020-04-20',''),(7,'2020-05-01',''),(8,'2020-06-01',''),(9,'2020-07-07',''),(10,'2020-07-08',''),(11,'2020-08-15',''),(12,'2020-11-30',''),(13,'2020-12-01',''),(14,'2020-12-25',''),(15,'2020-12-26','');
 /*!40000 ALTER TABLE `legal_days_off` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,17 +217,17 @@ CREATE TABLE `overtime_hours` (
   `started_at` time NOT NULL,
   `ended_at` time NOT NULL,
   `number_of_hours` int DEFAULT NULL,
-  `valid_number_of_days_id` int DEFAULT NULL,
-  `is_weekend` tinyint DEFAULT NULL,
-  `enabled` tinyint DEFAULT NULL,
+  `valid_number_of_days_id` int NOT NULL,
+  `is_weekend` tinyint NOT NULL DEFAULT '0',
+  `enabled` tinyint NOT NULL DEFAULT '0',
   `expires_at` date DEFAULT NULL,
-  `legal_days_off_id` int DEFAULT NULL,
+  `legal_days_off_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `LEGAL_DOFF_OVERTIMEHOURS_FK_idx` (`legal_days_off_id`),
   KEY `VNODPOTH_OVERTIMEHOURS_FK_idx` (`valid_number_of_days_id`),
   CONSTRAINT `LEGAL_DOFF_OVERTIMEHOURS_FK` FOREIGN KEY (`legal_days_off_id`) REFERENCES `legal_days_off` (`id`),
   CONSTRAINT `VNODPOTH_OVERTIMEHOURS_FK` FOREIGN KEY (`valid_number_of_days_id`) REFERENCES `valid_number_of_days_per_overtime_hours` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,7 +236,7 @@ CREATE TABLE `overtime_hours` (
 
 LOCK TABLES `overtime_hours` WRITE;
 /*!40000 ALTER TABLE `overtime_hours` DISABLE KEYS */;
-INSERT INTO `overtime_hours` VALUES (1,'2020-05-16','15:00:00','21:00:00',6,1,0,1,'2020-08-03',1);
+INSERT INTO `overtime_hours` VALUES (5,'2020-09-22','14:04:00','14:04:00',0,3,0,0,'2020-09-24',4),(7,'2020-12-15','16:06:00','18:59:00',2,1,1,1,'2020-09-30',0),(8,'2020-09-23','14:23:00','18:22:00',3,1,1,1,'2020-10-15',0);
 /*!40000 ALTER TABLE `overtime_hours` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -303,7 +304,7 @@ CREATE TABLE `program_types` (
   `starts_at` time NOT NULL,
   `ends_at` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,7 +313,7 @@ CREATE TABLE `program_types` (
 
 LOCK TABLES `program_types` WRITE;
 /*!40000 ALTER TABLE `program_types` DISABLE KEYS */;
-INSERT INTO `program_types` VALUES (1,'normal schedule','08:00:00','16:00:00'),(2,'first shift','06:00:00','14:00:00'),(3,'second shift','14:00:00','22:00:00'),(4,'third shift','22:00:00','06:00:00'),(6,'24H-firstDay','08:00:00','23:59:59'),(7,'24H-secondDay','00:00:00','07:59:59'),(8,'pregnancy shedule','08:00:00','14:00:00');
+INSERT INTO `program_types` VALUES (6,'24H-firstDay','08:00:00','23:59:59'),(7,'24H-secondDay','00:00:00','07:59:59'),(9,'normal','08:00:00','16:00:00');
 /*!40000 ALTER TABLE `program_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-19 15:11:13
+-- Dump completed on 2020-09-29 21:17:46

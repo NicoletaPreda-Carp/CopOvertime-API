@@ -13,4 +13,5 @@ public class LegalDayOffDto {
 
     private Long id;
     private LocalDate dayOff;
+    private String name;
 }
