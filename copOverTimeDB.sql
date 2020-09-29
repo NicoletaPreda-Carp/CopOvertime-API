@@ -200,7 +200,7 @@ CREATE TABLE `legal_days_off` (
 
 LOCK TABLES `legal_days_off` WRITE;
 /*!40000 ALTER TABLE `legal_days_off` DISABLE KEYS */;
-INSERT INTO `legal_days_off` VALUES (0,'1970-01-01',''),(1,'2020-01-01',''),(2,'2020-01-02',''),(3,'2020-01-24',''),(4,'2020-04-17',''),(5,'2020-04-19',''),(6,'2020-04-20',''),(7,'2020-05-01',''),(8,'2020-06-01',''),(9,'2020-07-07',''),(10,'2020-07-08',''),(11,'2020-08-15',''),(12,'2020-11-30',''),(13,'2020-12-01',''),(14,'2020-12-25',''),(15,'2020-12-26','');
+INSERT INTO `legal_days_off` VALUES (0,'1970-01-01','N/A'),(1,'2020-01-01','Prima zi a Anului Nou'),(2,'2020-01-02','A doua zi a Anului Nou'),(3,'2020-01-24','Ziua Unirii Principatelor Române'),(4,'2020-04-17','Vinerea Mare'),(5,'2020-04-19','Prima zi de Paște ortodox'),(6,'2020-04-20','A doua zi de Paște ortodox'),(7,'2020-05-01','Ziua Muncii'),(8,'2020-06-01','Ziua Copilului'),(9,'2020-07-07','Prima zi de Rusalii'),(10,'2020-07-08','A doua zi de Rusalii'),(11,'2020-08-15','Adormirea Maicii Domnului'),(12,'2020-11-30','Sfântul Andrei'),(13,'2020-12-01','Ziua Națională a României'),(14,'2020-12-25','Prima zi de Crăciun'),(15,'2020-12-26','A doua zi de Crăciun');
 /*!40000 ALTER TABLE `legal_days_off` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -374,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-29 21:17:46
+-- Dump completed on 2020-09-29 21:26:39
