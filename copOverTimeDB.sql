@@ -59,7 +59,7 @@ CREATE TABLE `department_programs` (
   KEY `PROGRAM_DEPARTMENTS_FK_idx` (`department_id`),
   CONSTRAINT `DEPARTMENT_PROGRAM_DEPARTMENTS_FK` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`),
   CONSTRAINT `DEPARTMENT_PROGRAM_PROGRAM_TYPES_FK` FOREIGN KEY (`program_type_id`) REFERENCES `program_types` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,6 +68,7 @@ CREATE TABLE `department_programs` (
 
 LOCK TABLES `department_programs` WRITE;
 /*!40000 ALTER TABLE `department_programs` DISABLE KEYS */;
+INSERT INTO `department_programs` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,2,4),(7,2,5),(8,2,6),(9,2,7),(10,3,4),(11,3,5),(12,4,2),(13,4,4),(14,4,5),(15,5,4),(16,5,5),(17,5,6),(18,5,7),(19,6,4),(20,6,5);
 /*!40000 ALTER TABLE `department_programs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +92,7 @@ CREATE TABLE `departments` (
 
 LOCK TABLES `departments` WRITE;
 /*!40000 ALTER TABLE `departments` DISABLE KEYS */;
-INSERT INTO `departments` VALUES (1,'BITSLF'),(2,'BITSLF-Padoc'),(3,'Expertize'),(4,'Baze de Date'),(5,'IT'),(6,'Secretariat'),(7,'fghjk'),(8,'ae4562563');
+INSERT INTO `departments` VALUES (1,'BITSLF'),(2,'BITSLF-Padoc'),(3,'Expertize'),(4,'Baze de Date'),(5,'IT'),(6,'Secretariat'),(7,'fghjk');
 /*!40000 ALTER TABLE `departments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,7 +237,7 @@ CREATE TABLE `overtime_hours` (
 
 LOCK TABLES `overtime_hours` WRITE;
 /*!40000 ALTER TABLE `overtime_hours` DISABLE KEYS */;
-INSERT INTO `overtime_hours` VALUES (5,'2020-09-22','14:04:00','14:04:00',0,3,0,0,'2020-09-24',4),(7,'2020-12-15','16:06:00','18:59:00',2,1,1,1,'2020-09-30',0),(8,'2020-09-23','14:23:00','18:22:00',3,1,1,1,'2020-10-15',0);
+INSERT INTO `overtime_hours` VALUES (5,'2020-09-22','14:04:00','14:04:00',0,3,0,0,'2020-09-24',4),(7,'2020-12-15','16:06:00','18:59:00',2,1,1,1,'2020-09-30',14),(8,'2020-09-23','14:23:00','18:22:00',3,1,1,1,'2020-10-15',0);
 /*!40000 ALTER TABLE `overtime_hours` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -304,7 +305,7 @@ CREATE TABLE `program_types` (
   `starts_at` time NOT NULL,
   `ends_at` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,7 +314,7 @@ CREATE TABLE `program_types` (
 
 LOCK TABLES `program_types` WRITE;
 /*!40000 ALTER TABLE `program_types` DISABLE KEYS */;
-INSERT INTO `program_types` VALUES (6,'24H-firstDay','08:00:00','23:59:59'),(7,'24H-secondDay','00:00:00','07:59:59'),(9,'normal','08:00:00','16:00:00');
+INSERT INTO `program_types` VALUES (1,'first shift','06:00:00','14:00:00'),(2,'second shift','14:00:00','22:00:00'),(3,'third shift','22:00:00','06:00:00'),(4,'normal','08:00:00','16:00:00'),(5,'pregnancy ','08:00:00','16:00:00'),(6,'24H-firstDay','08:00:00','23:59:59'),(7,'24H-secondDay','00:00:00','07:59:59');
 /*!40000 ALTER TABLE `program_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,7 +329,7 @@ CREATE TABLE `ranks` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -374,4 +375,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-29 21:26:39
+-- Dump completed on 2020-10-06 18:59:57
