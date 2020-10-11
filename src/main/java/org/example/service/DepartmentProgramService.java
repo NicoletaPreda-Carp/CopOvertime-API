@@ -10,6 +10,7 @@ import org.example.repository.DepartmentProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,15 @@ public class DepartmentProgramService {
                 .collect(Collectors.toList());
         return result;
     }
+
+    public List<DepartmentProgramDto> getByDepartmentId (Long departmentId){
+        List <DepartmentProgram> departmentProgramList = repository.findByDepartment_Id(departmentId);
+        List<DepartmentProgramDto> result = departmentProgramList.stream()
+                .map(departmentProgram -> mapper.modelToDto(departmentProgram))
+                .collect(Collectors.toList());
+        return result;
+           }
+
 
     public DepartmentProgramDto getById(Long id) throws CopOvertimeGenericException {
         DepartmentProgram model = repository.findById(id).orElse(null);
